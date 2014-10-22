@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 };
 
 exports.login = function(req, res) {
-	res.render('login', { title: 'Login' });
+	res.render('login', { title: 'Login', message: req.flash('error') });
 };
 
 exports.loginProcess = function(req, res) {
@@ -17,6 +17,7 @@ exports.loginProcess = function(req, res) {
 	if(isAuth) {
 		res.redirect('/chat');
 	} else {
+		req.flash('error', 'Wrong Username or Password');
 		res.redirect('/login');
 	}
 };

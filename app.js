@@ -9,6 +9,7 @@ var bodyParser = require('body-parser'); // For parsing the body from POSTs
 var RedisStore = require('connect-redis')(session);
 var csrf = require('csurf');
 var util = require('./middleware/utilities');
+var flash = require('connect-flash');
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -19,6 +20,7 @@ app.use(session({
 	resave: true,
 	store: new RedisStore({ url: 'redis://localhost' })
 })); // secret is used to create a hash of our session id
+app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(csrf());
@@ -26,6 +28,7 @@ app.use(util.csrf);
 app.use(util.authenticated);
 app.use(partials());
 app.set('view options', { defaultLayout: 'layout' });
+
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.post('/login', routes.loginProcess);
