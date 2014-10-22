@@ -1,4 +1,15 @@
-module.exports.csrf = function(req, res, next) {
+/**
+ * Function to set the routes object for all templates to access.
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
+exports.templateRoutes = function(req, res, next) {
+	res.locals.routes = config.routes;
+};
+
+exports.csrf = function(req, res, next) {
 	// res.locals is available to all templates that have access to this response.
 	res.locals.token = req.csrfToken();
 	next();
