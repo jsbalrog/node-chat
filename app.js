@@ -15,14 +15,13 @@ var config = require('./config');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser(config.secret)); // Must match the secret used in the session to read it
-app.use(session({ 
+app.use(session({
 	secret: config.secret,
 	saveUninitialized: true,
 	resave: true,
 	store: new RedisStore({ url: config.redisUrl })
 })); // secret is used to create a hash of our session id
 app.use(flash());
-app.use(util.templateRoutes);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(csrf());

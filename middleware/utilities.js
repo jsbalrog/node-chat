@@ -1,14 +1,3 @@
-/**
- * Function to set the routes object for all templates to access.
- * @param  {[type]}   req  [description]
- * @param  {[type]}   res  [description]
- * @param  {Function} next [description]
- * @return {[type]}        [description]
- */
-exports.templateRoutes = function(req, res, next) {
-	res.locals.routes = config.routes;
-};
-
 exports.csrf = function(req, res, next) {
 	// res.locals is available to all templates that have access to this response.
 	res.locals.token = req.csrfToken();
@@ -19,7 +8,7 @@ exports.csrf = function(req, res, next) {
  * Function to add an isAuthenticated variable for all templates.
  * isAuthenticated is placed on res.locals. If it is true, the
  * session.user is also placed on res.locals.
- * 
+ *
  * @param  {object}   req  the request object
  * @param  {object}   res  the response object
  * @param  {Function} next call the next middleware in the stack
@@ -33,10 +22,10 @@ exports.authenticated = function(req, res, next) {
 };
 
 /**
- * Function to determine whether the user is authenticated or not. 
+ * Function to determine whether the user is authenticated or not.
  * If not, redirect to login page. You'll want to use this middleware
  * on a per-route basis.
- * 
+ *
  * @param  {object}   req  the request object
  * @param  {object}   res  the response object
  * @param  {Function} next call the next middleware in the stack
@@ -52,7 +41,7 @@ exports.requireAuthentication = function(req, res, next) {
 
 /**
  * Function to authorize a user.
- * 
+ *
  * @param  {string} username the username to check against
  * @param  {string} password the password to check against
  * @param  {object} session  the session object
@@ -70,7 +59,7 @@ exports.auth = function(username, password, session) {
 /**
  * Function to log out a user. Deletes the user from the session
  * and sets isAuthenticated to false.
- * 
+ *
  * @param  {object} session the session object
  */
 exports.logout = function(session) {
