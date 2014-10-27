@@ -3,8 +3,8 @@ var util = require('../middleware/utilities');
 exports.index = function(req, res) {
 	res.cookie('IndexCookie', 'hello');
 	// Pass the title, the cookies, and the session to the view.
-	res.render('index', { 
-		title: 'Index', 
+	res.render('index', {
+		title: 'Index',
 	});
 };
 

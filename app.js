@@ -12,17 +12,17 @@ var util = require('./middleware/utilities');
 var flash = require('connect-flash');
 var config = require('./config');
 
+// Middlewares section
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser(config.secret)); // Must match the secret used in the session to read it
-app.use(session({ 
+app.use(session({
 	secret: config.secret,
 	saveUninitialized: true,
 	resave: true,
 	store: new RedisStore({ url: config.redisUrl })
 })); // secret is used to create a hash of our session id
 app.use(flash());
-app.use(util.templateRoutes);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(csrf());
@@ -43,5 +43,5 @@ app.get('/error', function (req, res, next) {
 app.use(errorHandlers.error);
 app.use(errorHandlers.notFound);
 
-app.listen(3000);
+app.listen(config.port);
 console.log('App server running on port 3000');
